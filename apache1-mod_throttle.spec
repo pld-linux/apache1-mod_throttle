@@ -14,7 +14,7 @@ Summary(pt_BR):	Descompressão "On-the-fly" de arquivos HTML para o Apache
 Summary(sv):	En modul som implementerar bandvidd- och begäranbegränsningar i Apache
 Name:		apache1-mod_%{mod_name}
 Version:	3.1.2
-Release:	1.4
+Release:	1.5
 License:	BSD-like
 Group:		Networking/Daemons
 Source0:	http://www.snert.com/Software/mod_throttle/mod_throttle312.tgz
@@ -121,7 +121,7 @@ else
 	echo "Run \"/etc/rc.d/init.d/apache start\" to start apache HTTP daemon."
 fi
 
-%preun
+%postun
 if [ "$1" = "0" ]; then
 	if [ -f /var/lock/subsys/apache ]; then
 		/etc/rc.d/init.d/apache restart 1>&2
