@@ -12,7 +12,7 @@ Summary(sv):	En modul som implementerar bandvidd- och begäranbegränsningar i Apa
 Name:		apache-mod_throttle
 Version:	3.1.2
 Release:	6
-License:	Anthony Howe
+License:	BSD-like
 Group:		Networking/Daemons
 Source0:	http://www.snert.com/Software/mod_throttle/mod_throttle312.tgz
 # Source0-md5:	6edc45c3ea8a0855d4b0b14cf0f76404
@@ -90,7 +90,7 @@ värdar, kataloger, platser eller autenticerade användare.
 %patch0 -p1
 
 %build
-%{apxs} -DSUEXEC_BIN="\"\\\"%{_sbindir}/suexec\\\"\"" -o mod_throttle.so -c mod_throttle.c
+%{apxs} -o mod_throttle.so -c mod_throttle.c
 
 %install
 rm -rf $RPM_BUILD_ROOT
