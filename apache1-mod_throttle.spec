@@ -69,7 +69,7 @@ Mod_throttle ¤Ë¤è¤Ã¤Æ Web ¥µ¡¼¥Ð¡¼¤¬½èÍý¤¹¤ë¥Ç¡¼¥¿ÎÌ¤òÀ©¸Â¤Ç¤­¤Þ¤¹
 Ç§¾Ú¥æ¡¼¥¶¡¼ÍÑ¤Ë¤Ä¤¤¤ÆÀßÄê¤Ç¤­¤Þ¤¹¡£
 
 %description -l pl
-Ten modu³ Apache ma s³u¿yæ do zmniejsszania obci±¿enia serwera i ruchu
+Ten modu³ Apache ma s³u¿yæ do zmniejszania obci±¿enia serwera i ruchu
 generowanego przez popularne hosty wirtualne, katalogi, pliki lub
 u¿ytkowników zgodnie z obs³ugiwanymi polisami, które decyduj± kiedy
 opó¼niæ lub odrzuciæ zapytanie. mod_throttle mo¿e tak¿e ¶ledziæ i
