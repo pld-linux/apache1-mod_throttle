@@ -7,7 +7,7 @@ Summary(fr):	Module qui met en oeuvre la bande passante et l'étranglement requis
 Summary(it):	Modulo che implementa la larghezza di banda e la richiesta di throttling per Apache
 Summary(ja):	Apache ÍÑÂÓ°èÉý¤ª¤è¤ÓÍ×µá¥¹¥í¥Ã¥È¥ë¤ò¼ÂÁõ¤¹¤ë¥â¥¸¥å¡¼¥ë
 Summary(pl):	T³umienie przepustowo¶ci i zapytañ dla Apache'a
-Summary(pt_BR): Descompressão "On-the-fly" de arquivos HTML para o Apache
+Summary(pt_BR):	Descompressão "On-the-fly" de arquivos HTML para o Apache
 Summary(sv):	En modul som implementerar bandvidd- och begäranbegränsningar i Apache
 Name:		apache-mod_throttle
 Version:	3.1.2
