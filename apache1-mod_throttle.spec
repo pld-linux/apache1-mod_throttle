@@ -17,7 +17,7 @@ License:	BSD-like
 Group:		Networking/Daemons
 Source0:	http://www.snert.com/Software/mod_throttle/mod_throttle312.tgz
 # Source0-md5:	6edc45c3ea8a0855d4b0b14cf0f76404
-Patch0:		apache-mod_throttle-PLD-v6stuff.patch
+Patch0:		apache1-mod_throttle-PLD-v6stuff.patch
 URL:		http://www.snert.com/Software/mod_throttle/
 BuildRequires:	%{apxs}
 BuildRequires:	apache1-devel >= 1.3.1
