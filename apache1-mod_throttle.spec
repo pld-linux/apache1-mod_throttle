@@ -15,6 +15,7 @@ Release:	6
 License:	Anthony Howe
 Group:		Networking/Daemons
 Source0:	http://www.snert.com/Software/mod_throttle/mod_throttle312.tgz
+# Source0-md5:	6edc45c3ea8a0855d4b0b14cf0f76404
 Patch0:		%{name}-PLD-v6stuff.patch
 URL:		http://www.snert.com/Software/mod_throttle/
 BuildRequires:	apache-devel
