@@ -1,4 +1,5 @@
-%define 	apxs	/usr/sbin/apxs
+%define		mod_name	throttle
+%define 	apxs		/usr/sbin/apxs1
 Summary:	Bandwidth & Request Throttling for Apache
 Summary(cs):	Omezení sí»ového provozu pro Apache
 Summary(de):	Ein Modul, das die Bandbreiten- und Anforderungseinschränkung für Apache implementiert
@@ -9,23 +10,23 @@ Summary(ja):	Apache ÍÑÂÓ°èÉý¤ª¤è¤ÓÍ×µá¥¹¥í¥Ã¥È¥ë¤ò¼ÂÁõ¤¹¤ë¥â¥¸¥å¡¼¥ë
 Summary(pl):	T³umienie przepustowo¶ci i zapytañ dla Apache'a
 Summary(pt_BR):	Descompressão "On-the-fly" de arquivos HTML para o Apache
 Summary(sv):	En modul som implementerar bandvidd- och begäranbegränsningar i Apache
-Name:		apache-mod_throttle
+Name:		apache1-mod_%{mod_name}
 Version:	3.1.2
-Release:	6
+Release:	1
 License:	BSD-like
 Group:		Networking/Daemons
 Source0:	http://www.snert.com/Software/mod_throttle/mod_throttle312.tgz
 # Source0-md5:	6edc45c3ea8a0855d4b0b14cf0f76404
-Patch0:		%{name}-PLD-v6stuff.patch
+Patch0:		apache-mod_throttle-PLD-v6stuff.patch
 URL:		http://www.snert.com/Software/mod_throttle/
 BuildRequires:	%{apxs}
-BuildRequires:	apache-devel
+BuildRequires:	apache1-devel >= 1.3.1
 Requires(post,preun):	%{apxs}
-Requires:	apache >= 1.3.1
+Requires:	apache1 >= 1.3.1
+Obsoletes:	apache-mod_%{mod_name} <= %{version}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
-%define         _libexecdir     %{_libdir}/apache
-%define         _htmldocdir     /home/httpd/manual/mod
+%define		_pkglibdir	%(%{apxs} -q LIBEXECDIR)
 
 %description
 This Apache module is intended to reduce the load on your server &
@@ -86,40 +87,40 @@ webbserver skickar. Dessa gränser kan sättas för enskilda virtuella
 värdar, kataloger, platser eller autenticerade användare.
 
 %prep
-%setup -q -n mod_throttle-%{version}
+%setup -q -n mod_%{mod_name}-%{version}
 %patch0 -p1
 
 %build
-%{apxs} -o mod_throttle.so -c mod_throttle.c
+%{apxs} -o mod_%{mod_name}.so -c mod_%{mod_name}.c
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{%{_libexecdir},%{_htmldocdir}}
+install -d $RPM_BUILD_ROOT%{_pkglibdir}
 
-install mod_throttle.so $RPM_BUILD_ROOT%{_libexecdir}
+install mod_%{mod_name}.so $RPM_BUILD_ROOT%{_pkglibdir}
 
-sed -e 's/<!--#/<!--/g' index.shtml > mod_throttle.html
+sed -e 's/<!--#/<!--/g' index.shtml > mod_%{mod_name}.html
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %post
-%{apxs} -e -a -n throttle %{_libexecdir}/mod_throttle.so 1>&2
-if [ -f /var/lock/subsys/httpd ]; then
-	/etc/rc.d/init.d/httpd restart 1>&2
+%{apxs} -e -a -n throttle %{_pkglibdir}/mod_%{mod_name}.so 1>&2
+if [ -f /var/lock/subsys/apache ]; then
+	/etc/rc.d/init.d/apache restart 1>&2
 else
-	echo "Run \"/etc/rc.d/init.d/httpd start\" to start apache http daemon."
+	echo "Run \"/etc/rc.d/init.d/apache start\" to start apache http daemon."
 fi
 
 %preun
 if [ "$1" = "0" ]; then
-	%{apxs} -e -A -n throttle %{_libexecdir}/mod_throttle.so 1>&2
-	if [ -f /var/lock/subsys/httpd ]; then
-		/etc/rc.d/init.d/httpd restart 1>&2
+	%{apxs} -e -A -n throttle %{_pkglibdir}/mod_%{mod_name}.so 1>&2
+	if [ -f /var/lock/subsys/apache ]; then
+		/etc/rc.d/init.d/apache restart 1>&2
 	fi
 fi
 
 %files
 %defattr(644,root,root,755)
 %doc *.txt *.html
-%attr(755,root,root) %{_libexecdir}/*
+%attr(755,root,root) %{_pkglibdir}/*
