@@ -6,11 +6,11 @@ Summary(fr):	Module qui met en oeuvre la bande passante et l'étranglement requis
 Summary(it):	Modulo che implementa la larghezza di banda e la richiesta di throttling per Apache
 Summary(ja):	Apache ÍÑÂÓ°èÉý¤ª¤è¤ÓÍ×µá¥¹¥í¥Ã¥È¥ë¤ò¼ÂÁõ¤¹¤ë¥â¥¸¥å¡¼¥ë
 Summary(pl):	T³umienie przepustowo¶ci i zapytañ dla Apache'a
+Summary(pt_BR): Descompressão "On-the-fly" de arquivos HTML para o Apache
 Summary(sv):	En modul som implementerar bandvidd- och begäranbegränsningar i Apache
-Summary():	
 Name:		apache-mod_throttle
 Version:	3.1.2
-Release:	1
+Release:	2
 License:	Anthony Howe
 Group:		Networking/Daemons
 Group(cs):	Sí»ové/Démoni
@@ -85,6 +85,9 @@ u¿ytkowników zgodnie z obs³ugiwanymi polisami, które decyduj± kiedy
 opó¼niæ lub odrzuciæ zapytanie. mod_throttle mo¿e tak¿e ¶ledziæ i
 t³umiæ po³±czenia przychodz±ce z danego adresu IP lub danego,
 autentykuj±cego siê, u¿ytkownika.
+
+%description -l pt_BR
+Descompressão "On-the-fly" de arquivos HTML para o Apache.
 
 %description -l sv
 Mod_throttle kan användas för att begränsa mängden data som din
