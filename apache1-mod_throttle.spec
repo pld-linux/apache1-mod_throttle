@@ -11,7 +11,7 @@ Summary(pt_BR): Descompressão "On-the-fly" de arquivos HTML para o Apache
 Summary(sv):	En modul som implementerar bandvidd- och begäranbegränsningar i Apache
 Name:		apache-mod_throttle
 Version:	3.1.2
-Release:	2
+Release:	3
 License:	Anthony Howe
 Group:		Networking/Daemons
 Group(cs):	Sí»ové/Démoni
