@@ -11,10 +11,11 @@ Summary(pt_BR):	Descompressão "On-the-fly" de arquivos HTML para o Apache
 Summary(sv):	En modul som implementerar bandvidd- och begäranbegränsningar i Apache
 Name:		apache-mod_throttle
 Version:	3.1.2
-Release:	3
+Release:	4
 License:	Anthony Howe
 Group:		Networking/Daemons
 Source0:	http://www.snert.com/Software/mod_throttle/mod_throttle312.tgz
+Patch0:		apache-mod_throttle-throttle-ip-off.patch
 URL:		http://www.snert.com/Software/mod_throttle/
 BuildRequires:	apache-devel
 BuildRequires:	%{apxs}
@@ -85,9 +86,10 @@ värdar, kataloger, platser eller autenticerade användare.
 
 %prep
 %setup -q -n mod_throttle-%{version}
+%patch0 -p0
 
 %build
-%{apxs} -DSUEXEC_BIN="\"\\\"%{_sbindir}/suexec\\\"\"" -o mod_throttle.so -c *.c
+%{apxs} -DSUEXEC_BIN="\"\\\"%{_sbindir}/suexec\\\"\"" -o mod_throttle.so -c mod_throttle.c
 # to don't bother about ssi counter inside
 mv -f index.shtml index.html
 
