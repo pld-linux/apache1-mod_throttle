@@ -90,17 +90,14 @@ värdar, kataloger, platser eller autenticerade användare.
 
 %build
 %{apxs} -DSUEXEC_BIN="\"\\\"%{_sbindir}/suexec\\\"\"" -o mod_throttle.so -c mod_throttle.c
-# to don't bother about ssi counter inside
-mv -f index.shtml index.html
 
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT{%{_libexecdir},%{_htmldocdir}}
 
 install mod_throttle.so $RPM_BUILD_ROOT%{_libexecdir}
-install *.html $RPM_BUILD_ROOT%{_htmldocdir}
 
-gzip -9nf *.txt
+sed -e 's/<!--#/<!--/g' index.shtml > mod_throttle.html
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -123,6 +120,5 @@ fi
 
 %files
 %defattr(644,root,root,755)
-%doc *.gz
-%doc %{_htmldocdir}/index.html
+%doc *.txt *.html
 %attr(755,root,root) %{_libexecdir}/*
