@@ -14,7 +14,7 @@ Summary(pt_BR):	Descompressão "On-the-fly" de arquivos HTML para o Apache
 Summary(sv):	En modul som implementerar bandvidd- och begäranbegränsningar i Apache
 Name:		apache1-mod_%{mod_name}
 Version:	3.1.2
-Release:	1.2
+Release:	1.4
 License:	BSD-like
 Group:		Networking/Daemons
 Source0:	http://www.snert.com/Software/mod_throttle/mod_throttle312.tgz
@@ -31,6 +31,7 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_pkglibdir	%(%{apxs} -q LIBEXECDIR 2>/dev/null)
 %define		_sysconfdir	%(%{apxs} -q SYSCONFDIR 2>/dev/null)
+%define		_pkglogdir	%(%{apxs} -q PREFIX 2>/dev/null)/logs
 
 %description
 This Apache module is intended to reduce the load on your server &
@@ -99,7 +100,7 @@ värdar, kataloger, platser eller autenticerade användare.
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{%{_pkglibdir},%{_sysconfdir}/conf.d}
+install -d $RPM_BUILD_ROOT{%{_pkglibdir},%{_sysconfdir}/conf.d,%{_pkglogdir}}
 
 install mod_%{mod_name}.so $RPM_BUILD_ROOT%{_pkglibdir}
 
@@ -107,6 +108,8 @@ echo 'LoadModule %{mod_name}_module	modules/mod_%{mod_name}.so' > \
 	$RPM_BUILD_ROOT%{_sysconfdir}/conf.d/90_mod_%{mod_name}.conf
 
 sed -e 's/<!--#/<!--/g' index.shtml > mod_%{mod_name}.html
+
+> $RPM_BUILD_ROOT%{_pkglogdir}/mod_throttle.runtime
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -136,3 +139,4 @@ fi
 %doc *.txt *.html
 %attr(640,root,root) %config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/conf.d/*_mod_%{mod_name}.conf
 %attr(755,root,root) %{_pkglibdir}/*
+%attr(660,root,http) %ghost %{_pkglogdir}/*
