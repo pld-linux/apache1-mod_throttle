@@ -1,3 +1,5 @@
+%bcond_without	ipv6		# disable IPv6 support
+
 %define		mod_name	throttle
 %define 	apxs		/usr/sbin/apxs1
 Summary:	Bandwidth & Request Throttling for Apache
@@ -12,7 +14,7 @@ Summary(pt_BR):	Descompressão "On-the-fly" de arquivos HTML para o Apache
 Summary(sv):	En modul som implementerar bandvidd- och begäranbegränsningar i Apache
 Name:		apache1-mod_%{mod_name}
 Version:	3.1.2
-Release:	1
+Release:	1.2
 License:	BSD-like
 Group:		Networking/Daemons
 Source0:	http://www.snert.com/Software/mod_throttle/mod_throttle312.tgz
@@ -20,13 +22,15 @@ Source0:	http://www.snert.com/Software/mod_throttle/mod_throttle312.tgz
 Patch0:		apache1-mod_throttle-PLD-v6stuff.patch
 URL:		http://www.snert.com/Software/mod_throttle/
 BuildRequires:	%{apxs}
-BuildRequires:	apache1-devel >= 1.3.1
-Requires(post,preun):	%{apxs}
-Requires:	apache1 >= 1.3.1
+BuildRequires:	apache1-devel >= 1.3.33-2
+%{?with_ipv6:BuildRequires:	apache1(ipv6)-devel}
+Requires(triggerpostun):	%{apxs}
+Requires:	apache1 >= 1.3.33-2
 Obsoletes:	apache-mod_%{mod_name} <= %{version}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
-%define		_pkglibdir	%(%{apxs} -q LIBEXECDIR)
+%define		_pkglibdir	%(%{apxs} -q LIBEXECDIR 2>/dev/null)
+%define		_sysconfdir	%(%{apxs} -q SYSCONFDIR 2>/dev/null)
 
 %description
 This Apache module is intended to reduce the load on your server &
@@ -88,16 +92,19 @@ värdar, kataloger, platser eller autenticerade användare.
 
 %prep
 %setup -q -n mod_%{mod_name}-%{version}
-%patch0 -p1
+%{?with_ipv6:%patch0 -p1}
 
 %build
 %{apxs} -o mod_%{mod_name}.so -c mod_%{mod_name}.c
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT%{_pkglibdir}
+install -d $RPM_BUILD_ROOT{%{_pkglibdir},%{_sysconfdir}/conf.d}
 
 install mod_%{mod_name}.so $RPM_BUILD_ROOT%{_pkglibdir}
+
+echo 'LoadModule %{mod_name}_module	modules/mod_%{mod_name}.so' > \
+	$RPM_BUILD_ROOT%{_sysconfdir}/conf.d/90_mod_%{mod_name}.conf
 
 sed -e 's/<!--#/<!--/g' index.shtml > mod_%{mod_name}.html
 
@@ -105,7 +112,6 @@ sed -e 's/<!--#/<!--/g' index.shtml > mod_%{mod_name}.html
 rm -rf $RPM_BUILD_ROOT
 
 %post
-%{apxs} -e -a -n throttle %{_pkglibdir}/mod_%{mod_name}.so 1>&2
 if [ -f /var/lock/subsys/apache ]; then
 	/etc/rc.d/init.d/apache restart 1>&2
 else
@@ -114,13 +120,19 @@ fi
 
 %preun
 if [ "$1" = "0" ]; then
-	%{apxs} -e -A -n throttle %{_pkglibdir}/mod_%{mod_name}.so 1>&2
 	if [ -f /var/lock/subsys/apache ]; then
 		/etc/rc.d/init.d/apache restart 1>&2
 	fi
 fi
 
+%triggerpostun -- apache1-mod_%{mod_name} < 3.1.2-1.1
+# check that they're not using old apache.conf
+if grep -q '^Include conf\.d' /etc/apache/apache.conf; then
+	%{apxs} -e -A -n %{mod_name} %{_pkglibdir}/mod_%{mod_name}.so 1>&2
+fi
+
 %files
 %defattr(644,root,root,755)
 %doc *.txt *.html
+%attr(640,root,root) %config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/conf.d/*_mod_%{mod_name}.conf
 %attr(755,root,root) %{_pkglibdir}/*
