@@ -50,7 +50,7 @@ authentifizierte Benutzer eingestellt werden.
 %description -l es
 Mod_throttle puede usarse para limitar la cantidad de datos que su
 servidor web va a servir. Estos límites se pueden configurar para
-hosts virtuales individuales, directorios, lug<res o usuarios
+hosts virtuales individuales, directorios, lugares o usuarios
 autenticados.
 
 %description -l fr
