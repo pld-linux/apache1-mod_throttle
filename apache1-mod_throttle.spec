@@ -1,12 +1,32 @@
-Summary:	Bandwidth & Request Throttling
-Summary(pl):	T³umienie przepustowo¶ci i zapytañ
+Summary:	Bandwidth & Request Throttling for Apache
+Summary(cs):	Omezení sí»ového provozu pro Apache
+Summary(de):	Ein Modul, das die Bandbreiten- und Anforderungseinschränkung für Apache implementiert
+Summary(es):	Módulo que implementa la gestión de ancho de banda y peticiones para Apache
+Summary(fr):	Module qui met en oeuvre la bande passante et l'étranglement requis pour Apache
+Summary(it):	Modulo che implementa la larghezza di banda e la richiesta di throttling per Apache
+Summary(ja):	Apache ÍÑÂÓ°èÉý¤ª¤è¤ÓÍ×µá¥¹¥í¥Ã¥È¥ë¤ò¼ÂÁõ¤¹¤ë¥â¥¸¥å¡¼¥ë
+Summary(pl):	T³umienie przepustowo¶ci i zapytañ dla Apache'a
+Summary(sv):	En modul som implementerar bandvidd- och begäranbegränsningar i Apache
+Summary():	
 Name:		apache-mod_throttle
 Version:	3.1.2
 Release:	1
 License:	Anthony Howe
 Group:		Networking/Daemons
+Group(cs):	Sí»ové/Démoni
+Group(da):	Netværks/Dæmoner
 Group(de):	Netzwerkwesen/Server
+Group(es):	Red/Servidores
+Group(fr):	Réseau/Serveurs
+Group(is):	Net/Púkar
+Group(it):	Rete/Demoni
+Group(no):	Nettverks/Daemoner
 Group(pl):	Sieciowe/Serwery
+Group(pt):	Rede/Servidores
+Group(ru):	óÅÔØ/äÅÍÏÎÙ
+Group(sl):	Omre¾ni/Stre¾niki
+Group(sv):	Nätverk/Demoner
+Group(uk):	íÅÒÅÖÁ/äÅÍÏÎÉ
 Source0:	http://www.snert.com/Software/mod_throttle/mod_throttle312.tgz
 URL:		http://www.snert.com/Software/mod_throttle/
 BuildRequires:	apache-devel
@@ -23,6 +43,41 @@ or users according to supported polices (see below) that decide when
 to delay or refuse requests. Also mod_throttle can track and throttle
 incoming connections by IP address or by authenticated remote user.
 
+%description -l cs
+Balíèek mod_throttle obsahuje modul, který umo¾òuje omezit prùtok dat,
+která odcházejí z WWW serveru Apache. Limity mohou být nastaveny pro
+jednotlivé virtuální weby, adresáøe, umístìní nebo autentizované
+u¾ivatele.
+
+%description -l de
+Mod_throttle kann verwendet werden, um die Datenmenge zu beschränken,
+die Ihr Web-Server behandelt. Diese Einschränkungen können für
+einzelne virtuelle Rechner, Verzeichnisse, Speicherstellen oder
+authentifizierte Benutzer eingestellt werden.
+
+%description -l es
+Mod_throttle puede usarse para limitar la cantidad de datos que su
+servidor web va a servir. Estos límites se pueden configurar para
+hosts virtuales individuales, directorios, lug<res o usuarios
+autenticados.
+
+%description -l fr
+Mod_throttle peut être utilisé pour limiter la quantité de données
+servies par votre serveur Web. Ces limites peuvent être définies pour
+des hôtes virtuels individuels, répertoires, emplacements ou
+utilisateurs authentifiés.
+
+%description -l it
+Mod_throttle può essere usato per limitare la quantità di dati che il
+server Web dovrà servire. Queste limitazioni possono essere
+configurate per singoli host virtuali, directory, indirizzi o utenti
+autenticati.
+
+%description -l ja
+Mod_throttle ¤Ë¤è¤Ã¤Æ Web ¥µ¡¼¥Ð¡¼¤¬½èÍý¤¹¤ë¥Ç¡¼¥¿ÎÌ¤òÀ©¸Â¤Ç¤­¤Þ¤¹
+¤³¤ì¤é¤ÎÀ©¸Â¤Ï¡¢¸Ä¡¹¤Î²¾ÁÛ¥Û¥¹¥È¡¢¥Ç¥£¥ì¥¯¥È¥ê¡¢¾ì½ê¡¢¤Þ¤¿¤Ï
+Ç§¾Ú¥æ¡¼¥¶¡¼ÍÑ¤Ë¤Ä¤¤¤ÆÀßÄê¤Ç¤­¤Þ¤¹¡£
+
 %description -l pl
 Ten modu³ Apache ma s³u¿yæ do zmniejsszania obci±¿enia serwera i ruchu
 generowanego przez popularne hosty wirtualne, katalogi, pliki lub
@@ -30,6 +85,11 @@ u¿ytkowników zgodnie z obs³ugiwanymi polisami, które decyduj± kiedy
 opó¼niæ lub odrzuciæ zapytanie. mod_throttle mo¿e tak¿e ¶ledziæ i
 t³umiæ po³±czenia przychodz±ce z danego adresu IP lub danego,
 autentykuj±cego siê, u¿ytkownika.
+
+%description -l sv
+Mod_throttle kan användas för att begränsa mängden data som din
+webbserver skickar. Dessa gränser kan sättas för enskilda virtuella
+värdar, kataloger, platser eller autenticerade användare.
 
 %prep
 %setup -q -n mod_throttle-%{version}
