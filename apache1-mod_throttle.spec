@@ -14,20 +14,6 @@ Version:	3.1.2
 Release:	3
 License:	Anthony Howe
 Group:		Networking/Daemons
-Group(cs):	Sí»ové/Démoni
-Group(da):	Netværks/Dæmoner
-Group(de):	Netzwerkwesen/Server
-Group(es):	Red/Servidores
-Group(fr):	Réseau/Serveurs
-Group(is):	Net/Púkar
-Group(it):	Rete/Demoni
-Group(no):	Nettverks/Daemoner
-Group(pl):	Sieciowe/Serwery
-Group(pt):	Rede/Servidores
-Group(ru):	óÅÔØ/äÅÍÏÎÙ
-Group(sl):	Omre¾ni/Stre¾niki
-Group(sv):	Nätverk/Demoner
-Group(uk):	íÅÒÅÖÁ/äÅÍÏÎÉ
 Source0:	http://www.snert.com/Software/mod_throttle/mod_throttle312.tgz
 URL:		http://www.snert.com/Software/mod_throttle/
 BuildRequires:	apache-devel
