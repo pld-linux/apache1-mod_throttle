@@ -1,30 +1,46 @@
-diff -u mod_throttle-3.1.2/mod_throttle.c mod_throttle-3.1.2.new/mod_throttle.c
 --- mod_throttle-3.1.2/mod_throttle.c	Sun Dec  3 11:15:10 2000
-+++ mod_throttle-3.1.2.new/mod_throttle.c	Thu Aug 29 21:04:31 2002
-@@ -41,6 +41,8 @@
-  * for a FreeBSD machine for testing and several suggestions.
-  */
++++ mod_throttle.c	Fri Aug 30 11:38:50 2002
+@@ -2788,6 +2788,12 @@
+ 	if (ap_table_get(r->headers_in, x_is_subrequest) == true)
+ 		return OK;
  
-+/* This patch won't go with IPv6.  Forget it.  Or, better, fix it. */
++#ifdef INET6
++	/* decline if client has an IPv6 address */
++	if (r->connection->remote_addr.ss_family != AF_INET)
++		return DECLINED;
++#endif
 +
- /***********************************************************************
-  *** Pick one that best suits your system.
-  ***********************************************************************/
-@@ -2811,7 +2813,7 @@
+ 	/* Avoid throttling status requests, but subject them to
+ 	 * other access controls.
+ 	 */
+@@ -2811,7 +2817,11 @@
  	 * which we will apply the global policy for client connections.
  	 */
  	client_ip_config.track = (t_throttle *) get_client_ip(
--		client_ip_pool, r->connection->remote_addr.sin_addr
++#ifdef INET6
 +		client_ip_pool, ((struct sockaddr_in *)&r->connection->remote_addr)->sin_addr
++#else
+ 		client_ip_pool, r->connection->remote_addr.sin_addr
++#endif
  	);
  
  	/* Is it time for the period adjustment? */
-@@ -3185,7 +3187,7 @@
+@@ -3185,7 +3195,17 @@
  	(void) critical_acquire(critical);
  
  #ifdef THROTTLE_CLIENT_IP
 -	client_ip = get_client_ip(client_ip_pool, r->connection->remote_addr.sin_addr);
-+	client_ip = get_client_ip(client_ip_pool, ((struct sockaddr_in *)&r->connection->remote_addr)->sin_addr);
++	#ifdef INET6
++	/* decline if client has an IPv6 address */
++	if (r->connection->remote_addr.ss_family != AF_INET)
++		return DECLINED;
++
++	client_ip = get_client_ip(client_ip_pool,
++			((struct sockaddr_in *)&r->connection->remote_addr)->sin_addr);
++	#else
++	client_ip = get_client_ip(client_ip_pool,
++			r->connection->remote_addr)->sin_addr;
++	#endif
  #endif
  #ifdef THROTTLE_REMOTE_USER
  	remote_user = get_remote_user(remote_user_pool, r->connection->user);
