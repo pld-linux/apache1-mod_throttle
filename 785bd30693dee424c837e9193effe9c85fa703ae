@@ -1,0 +1,1 @@
+- restored ThrottleClientIP; won't work with IPv6, though
