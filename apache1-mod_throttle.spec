@@ -34,7 +34,7 @@ Descompressão "On-the-fly" de arquivos HTML para o Apache.
 %setup -q -n mod_throttle-%{version}
 
 %build
-apxs -D SUEXEC_BIN="\"\\\"%{_sbindir}/suexec\\\"\"" -o mod_throttle.so -c *.c
+/usr/sbin/apxs -DSUEXEC_BIN="\"\\\"%{_sbindir}/suexec\\\"\"" -o mod_throttle.so -c *.c
 # to don't bother about ssi counter inside
 mv index.shtml index.html
 
