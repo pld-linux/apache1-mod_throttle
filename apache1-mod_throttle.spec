@@ -1,3 +1,4 @@
+%define 	apxs	/usr/sbin/apxs
 Summary:	Bandwidth & Request Throttling for Apache
 Summary(cs):	Omezení sí»ového provozu pro Apache
 Summary(de):	Ein Modul, das die Bandbreiten- und Anforderungseinschränkung für Apache implementiert
@@ -30,6 +31,8 @@ Group(uk):	íÅÒÅÖÁ/äÅÍÏÎÉ
 Source0:	http://www.snert.com/Software/mod_throttle/mod_throttle312.tgz
 URL:		http://www.snert.com/Software/mod_throttle/
 BuildRequires:	apache-devel
+BuildRequires:	%{apxs}
+Prereq:		%{_sbindir}/apxs
 Requires:	apache >= 1.3.1
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -98,7 +101,7 @@ värdar, kataloger, platser eller autenticerade användare.
 %setup -q -n mod_throttle-%{version}
 
 %build
-/usr/sbin/apxs -DSUEXEC_BIN="\"\\\"%{_sbindir}/suexec\\\"\"" -o mod_throttle.so -c *.c
+%{apxs} -DSUEXEC_BIN="\"\\\"%{_sbindir}/suexec\\\"\"" -o mod_throttle.so -c *.c
 # to don't bother about ssi counter inside
 mv -f index.shtml index.html
 
