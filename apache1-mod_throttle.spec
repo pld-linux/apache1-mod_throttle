@@ -1,6 +1,5 @@
 Summary:	Bandwidth & Request Throttling
-Summary(es):	Descompresión instantanea de archivos HTML para Apache
-Summary(pt_BR):	Descompressão "On-the-fly" de arquivos HTML para o Apache
+Summary(pl):	T³umienie przepustowo¶ci i zapytañ
 Name:		apache-mod_throttle
 Version:	3.1.2
 Release:	1
@@ -24,11 +23,13 @@ or users according to supported polices (see below) that decide when
 to delay or refuse requests. Also mod_throttle can track and throttle
 incoming connections by IP address or by authenticated remote user.
 
-%description -l es
-Descompresión instantanea de archivos HTML para Apache.
-
-%description -l pt_BR
-Descompressão "On-the-fly" de arquivos HTML para o Apache.
+%description -l pl
+Ten modu³ Apache ma s³u¿yæ do zmniejsszania obci±¿enia serwera i ruchu
+generowanego przez popularne hosty wirtualne, katalogi, pliki lub
+u¿ytkowników zgodnie z obs³ugiwanymi polisami, które decyduj± kiedy
+opó¼niæ lub odrzuciæ zapytanie. mod_throttle mo¿e tak¿e ¶ledziæ i
+t³umiæ po³±czenia przychodz±ce z danego adresu IP lub danego,
+autentykuj±cego siê, u¿ytkownika.
 
 %prep
 %setup -q -n mod_throttle-%{version}
@@ -36,7 +37,7 @@ Descompressão "On-the-fly" de arquivos HTML para o Apache.
 %build
 /usr/sbin/apxs -DSUEXEC_BIN="\"\\\"%{_sbindir}/suexec\\\"\"" -o mod_throttle.so -c *.c
 # to don't bother about ssi counter inside
-mv index.shtml index.html
+mv -f index.shtml index.html
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -46,6 +47,9 @@ install mod_throttle.so $RPM_BUILD_ROOT%{_libexecdir}
 install *.html $RPM_BUILD_ROOT%{_htmldocdir}
 
 gzip -9nf *.txt
+
+%clean
+rm -rf $RPM_BUILD_ROOT
 
 %post
 %{_sbindir}/apxs -e -a -n throttle %{_libexecdir}/mod_throttle.so 1>&2
@@ -62,9 +66,6 @@ if [ "$1" = "0" ]; then
 		/etc/rc.d/init.d/httpd restart 1>&2
 	fi
 fi
-
-%clean
-rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
