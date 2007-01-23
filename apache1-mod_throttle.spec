@@ -14,7 +14,7 @@ Summary(pt_BR):	Descompressão "On-the-fly" de arquivos HTML para o Apache
 Summary(sv):	En modul som implementerar bandvidd- och begäranbegränsningar i Apache
 Name:		apache1-mod_%{mod_name}
 Version:	3.1.2
-Release:	3
+Release:	4
 License:	BSD-like
 Group:		Networking/Daemons
 Source0:	http://www.snert.com/Software/mod_throttle/mod_throttle312.tgz
@@ -26,7 +26,7 @@ BuildRequires:	%{apxs}
 BuildRequires:	apache1-devel >= 1.3.33-2
 BuildRequires:	rpmbuild(macros) >= 1.268
 Requires(triggerpostun):	%{apxs}
-Requires:	apache1 >= 1.3.33-2
+Requires:	apache1(EAPI)
 Obsoletes:	apache-mod_throttle <= 3.1.2
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
