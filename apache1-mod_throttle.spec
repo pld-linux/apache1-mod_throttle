@@ -3,15 +3,15 @@
 %define		mod_name	throttle
 %define 	apxs		/usr/sbin/apxs1
 Summary:	Bandwidth & Request Throttling for Apache
-Summary(cs.UTF-8):   Omezení síťového provozu pro Apache
-Summary(de.UTF-8):   Ein Modul, das die Bandbreiten- und Anforderungseinschränkung für Apache implementiert
-Summary(es.UTF-8):   Módulo que implementa la gestión de ancho de banda y peticiones para Apache
-Summary(fr.UTF-8):   Module qui met en oeuvre la bande passante et l'étranglement requis pour Apache
-Summary(it.UTF-8):   Modulo che implementa la larghezza di banda e la richiesta di throttling per Apache
-Summary(ja.UTF-8):   Apache 用帯域幅および要求スロットルを実装するモジュール
-Summary(pl.UTF-8):   Tłumienie przepustowości i zapytań dla Apache'a
-Summary(pt_BR.UTF-8):   Descompressão "On-the-fly" de arquivos HTML para o Apache
-Summary(sv.UTF-8):   En modul som implementerar bandvidd- och begäranbegränsningar i Apache
+Summary(cs.UTF-8):	Omezení síťového provozu pro Apache
+Summary(de.UTF-8):	Ein Modul, das die Bandbreiten- und Anforderungseinschränkung für Apache implementiert
+Summary(es.UTF-8):	Módulo que implementa la gestión de ancho de banda y peticiones para Apache
+Summary(fr.UTF-8):	Module qui met en oeuvre la bande passante et l'étranglement requis pour Apache
+Summary(it.UTF-8):	Modulo che implementa la larghezza di banda e la richiesta di throttling per Apache
+Summary(ja.UTF-8):	Apache 用帯域幅および要求スロットルを実装するモジュール
+Summary(pl.UTF-8):	Tłumienie przepustowości i zapytań dla Apache'a
+Summary(pt_BR.UTF-8):	Descompressão "On-the-fly" de arquivos HTML para o Apache
+Summary(sv.UTF-8):	En modul som implementerar bandvidd- och begäranbegränsningar i Apache
 Name:		apache1-mod_%{mod_name}
 Version:	3.1.2
 Release:	4
